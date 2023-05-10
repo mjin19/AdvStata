@@ -14,6 +14,5 @@ Today let’s start by reading in the alpha-version of this program, which we ad
 qui do https://raw.githubusercontent.com/jhustata/book/main/nhanes-alpha.ado      
 ```
 
-
 ```{tableofcontents}
 ```
