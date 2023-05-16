@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>Increasing access to the NHANES 1988-2018 surveys &amp; mortality linkage data via a user-friendly Stata program &#8212; Advanced Stata Book</title>
+    <title>Background &#8212; Advanced Stata Book</title>
   
   
   
@@ -61,10 +61,11 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="_static/sphinx-thebe.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'intro';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'background';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Background" href="background.html" />
+    <link rel="next" title="Methods" href="markdown.html" />
+    <link rel="prev" title="Increasing access to the NHANES 1988-2018 surveys &amp; mortality linkage data via a user-friendly Stata program" href="intro.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -130,7 +131,7 @@ const thebe_selector_output = ".output, .cell_output"
         <div class="sidebar-primary-item">
   
 
-<a class="navbar-brand logo" href="#">
+<a class="navbar-brand logo" href="intro.html">
   
   
   
@@ -149,14 +150,14 @@ const thebe_selector_output = ".output, .cell_output"
     <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
-            <li class="toctree-l1 current active">
-                <a class="reference internal" href="#">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
                     Increasing access to the NHANES 1988-2018 surveys & mortality linkage data via a user-friendly Stata program
                 </a>
             </li>
         </ul>
-        <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="background.html">Background</a></li>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Background</a></li>
 <li class="toctree-l1"><a class="reference internal" href="markdown.html">Methods</a></li>
 <li class="toctree-l1"><a class="reference internal" href="notebooks.html">Results</a></li>
 <li class="toctree-l1"><a class="reference internal" href="markdown-notebooks.html">Conclusions</a></li>
@@ -233,7 +234,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="https://mjin19.github.io/AdvStata/intro.html/issues/new?title=Issue%20on%20page%20%2Fintro.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://mjin19.github.io/AdvStata/intro.html/issues/new?title=Issue%20on%20page%20%2Fbackground.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -263,7 +264,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="_sources/intro.md" target="_blank"
+      <li><a href="_sources/background.md" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -343,7 +344,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Increasing access to the NHANES 1988-2018 surveys & mortality linkage data via a user-friendly Stata program</h1>
+    <h1>Background</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -357,18 +358,14 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="increasing-access-to-the-nhanes-1988-2018-surveys-mortality-linkage-data-via-a-user-friendly-stata-program">
-<h1>Increasing access to the NHANES 1988-2018 surveys &amp; mortality linkage data via a user-friendly Stata program<a class="headerlink" href="#increasing-access-to-the-nhanes-1988-2018-surveys-mortality-linkage-data-via-a-user-friendly-stata-program" title="Permalink to this heading">#</a></h1>
-<p>Authors: Junming Gong, Mu Jin, Xueer Zhang, Sohyeon Kwon</p>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="background.html">Background</a></li>
-<li class="toctree-l1"><a class="reference internal" href="markdown.html">Methods</a></li>
-<li class="toctree-l1"><a class="reference internal" href="notebooks.html">Results</a></li>
-<li class="toctree-l1"><a class="reference internal" href="markdown-notebooks.html">Conclusions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="final.html">Acknowledgments</a></li>
-<li class="toctree-l1"><a class="reference internal" href="final.html#references">References</a></li>
-</ul>
+  <section class="tex2jax_ignore mathjax_ignore" id="background">
+<h1>Background<a class="headerlink" href="#background" title="Permalink to this heading">#</a></h1>
+<p>We are developing skills that allow us to access publicly available large databases that may be queried to answer fundamental questions about the publics health. These datasets might exist in formats unfamiliar to Stata users or in sizes that cripple ones workflow.</p>
+<p>In our first two weeks, we curated a dataset with all the mortality records in the United States from 1959-2017 and wrote a basic Stata script that output a two-way plot showing annual trends in number of deaths during this period. In the subsequent two weeks we wrote a Stata program, mortality, that allows the user to define the time-period of interest, plus other parameters such as cause-of-death, and ultimately produce a similar two-way plot with the convenience of a Stata command.</p>
+<p>Our goal for the second-half of the class is to leverage this experience to give Stata users access to the entire range of NHANES surveys via a simple command, nhanes, with several user-defined options. We have not yet articulated what these options are but will do so on an emerging basis each week.</p>
+<p>Today let’s start by reading in the alpha-version of this program, which we adopted from Chapter: r(mean) of the PH.340.600 book. Depending on your Stata edition, this program will either import a dataset with 20,000 observations and 3600 variables or 20,000 observations and 22 variables:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">qui</span> <span class="n">do</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">raw</span><span class="o">.</span><span class="n">githubusercontent</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">jhustata</span><span class="o">/</span><span class="n">book</span><span class="o">/</span><span class="n">main</span><span class="o">/</span><span class="n">nhanes</span><span class="o">-</span><span class="n">alpha</span><span class="o">.</span><span class="n">ado</span>      
+</pre></div>
 </div>
 </section>
 
@@ -403,12 +400,21 @@ document.write(`
   
     <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
+    <a class="left-prev"
+       href="intro.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Increasing access to the NHANES 1988-2018 surveys &amp; mortality linkage data via a user-friendly Stata program</p>
+      </div>
+    </a>
     <a class="right-next"
-       href="background.html"
+       href="markdown.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Background</p>
+        <p class="prev-next-title">Methods</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
