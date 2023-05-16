@@ -9,7 +9,7 @@ When a Kaplan-Meier graph pops up on your screen, that will be your cue that the
     nhanes
 ```
 
-<img src="/Users/mujin/Advstata/Graph.svg" alt="Graph Title" width="800" height="600">
+<img src="https://raw.githubusercontent.com/mjin19/AdvStata/master/_build/html/_images/Graph.svg" alt="Graph Title" width="800" height="600">
   
 ```  
     use nh3andmort, clear
