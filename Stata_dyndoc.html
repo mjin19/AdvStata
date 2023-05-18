@@ -1,11 +1,14 @@
 <h1><a href="#increasing-access-to-the-nhanes-1988-2018-surveys-mortality-linkage-data-via-a-user-friendly-stata-program" id="increasing-access-to-the-nhanes-1988-2018-surveys-mortality-linkage-data-via-a-user-friendly-stata-program">Increasing access to the NHANES 1988-2018 surveys &amp; mortality linkage data via a user-friendly Stata program</a></h1>
-<p>Authors, degrees, institutional affiliations</p>
+<p>Mu Jin, Johns Hopkins Bloomberg School of Public Health<br />
+Junming Gong, Johns Hopkins Bloomberg School of Public Health<br />
+Xueer Zhang, Johns Hopkins Bloomberg School of Public Health<br />
+Sohyeon Kwon, Johns Hopkins Bloomberg School of Public Health</p>
 <p><strong>Background:</strong> The National Health and Nutrition Examination Survey (NHANES) is a comprehensive initiative tasked with evaluating the health and nutritional conditions of both children and adults in the United States. This distinctive survey is conducted through a blend of in-depth interviews and physical examinations. It is a cornerstone program of the National Center for Health Statistics (NCHS), a component of the Centers for Disease Control and Prevention (CDC).</p>
 <p>For the 700 course, we curated a dataset with all the <a href="https://data.nber.org/mortality/">mortality records</a> in the United States from 1959-2017 and wrote a basic Stata script that output a <a href="https://jhustata.github.io/book/_downloads/9359d2ae4f8ad2efcfe2fd34e3547c35/mortality.png">two-way plot</a> showing annual trends in number of deaths during this period. For the final project, our group designed a program using NHANES data to conduct survival analysis for any of the varibles in the dataset.</p>
 <p><strong>Methods:</strong> This program is based on Stata/BE 17.0. This current program outputs an NHANES dataset with 22 pre-specified variables. Kaplan-Meier graph is used to show the difference between survival probality by exposure group. Scaled Schoenfeld residuals is used to test the proportional hazards assumption, and Cox proportional hazards model is used to evaluate the effect of selected variable on survival.</p>
 <p><strong>Results:</strong> This project outputs a Kaplan-Meier graphs by input variable, results from proportional hazards assumption test, and output a univariate Cox model. To call the program, you would use: survival_analysis variable name. We also showed an example, the exposure is hab1(general health status) and the outcome is time to death.</p>
-<pre><code>. qui do https://raw.githubusercontent.com/jhustata/book/main/nhanes-alpha.ado    
-&gt;   
+<p>Here we run the original Stata program created by Professor Muzaale to generate mortality dataset for analysis:</p>
+<pre><code>. qui do https://raw.githubusercontent.com/jhustata/book/main/nhanes-alpha.ado      
 
 . set scheme s2color
 
@@ -13,6 +16,7 @@
 
 </code></pre>
 <p><img src="Graph.svg" ></p>
+<p>Here is our survival program and an example using hab1 as exposure:</p>
 <pre><code>. use nh3andmort, clear
 (NHANES 1988-1994, survey &amp; mortality)
 
@@ -47,7 +51,7 @@ Observed time interval: (0, permth_exm]
   1.   args varname
   2.   
 .   sts graph, by(`varname') title(Kaplan-Meier Estimates)
-  3.   graph export kaplan-meier.svg,replace
+  3.   graph export kaplan-meier.png,replace
   4.   
 .   di &quot;Cox proportional hazards model for `varname':&quot;
   5.   stcox `varname'
@@ -62,8 +66,7 @@ Observed time interval: (0, permth_exm]
 
         Failure _d: mortstat
   Analysis time _t: permth_exm
-(file kaplan-meier.svg not found)
-file kaplan-meier.svg saved as SVG format
+file /Users/mujin/Downloads/advstata_final/kaplan-meier.png saved as PNG format
 Cox proportional hazards model for hab1:
 
         Failure _d: mortstat

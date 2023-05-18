@@ -2,7 +2,10 @@
 
 ## Increasing access to the NHANES 1988-2018 surveys & mortality linkage data via a user-friendly Stata program
 
-*Mu Jin, Johns Hopkins Bloomberg School of Public Health*
+*Mu Jin, Johns Hopkins Bloomberg School of Public Health*   
+*Junming Gong, Johns Hopkins Bloomberg School of Public Health*   
+*Xueer Zhang, Johns Hopkins Bloomberg School of Public Health*   
+*Sohyeon Kwon, Johns Hopkins Bloomberg School of Public Health*   
 
 **Background:**   
 
@@ -18,13 +21,27 @@ This program is based on Stata/BE 17.0. This current program outputs an NHANES d
 
 This project outputs a Kaplan-Meier graphs by input variable, results from proportional hazards assumption test, and output a univariate Cox model. To call the program, you would use: `survival_analysis variable name`. We also showed an example, the exposure is `hab1` (general health status) and the outcome is time to death.  
 
-Here is an example of how to use the program:
+Here is how we developed the NHANES mortality dataset:
+  
+```stata
+set scheme s2color
+nhanes 
+```  
+![](Graph.svg)       
+    
+```stata
+use nh3andmort, clear
+di "obs: `c(N)' & vars: `c(k)'"
+```
+<u>obs</u>: 19599  
+<u>vars</u>: 22   
+  
+Here is our survival analysis program and an example:  
 
 ```stata
 use nh3andmort, clear  
 stset permth_exm, failure(mortstat) 
-```  
-![](Graph.svg) 
+```   
 
 ```stata
 capture program drop survival_analysis
@@ -42,8 +59,9 @@ program define survival_analysis
 end
 
 survival_analysis hab1  
-```  
-![](kaplan-meier.png)   
+```   
+![](Graph1.svg)  
+
   
 Cox proportional hazards model for hab1:
 
@@ -70,7 +88,9 @@ This program can easily run and show the results for a survival analysis between
   
 We initially published our Stata output in a Jupyter book hosted by Github. All the .html content of the book was produced in a Python environment; however, Stata .html output will gradually replace the Python-based output of the book as we truly become advanced Stata users!  
 
-VS Code terminal is our IDE choice for committing and pushing our git content to our hub and have established a seamless process for updating our publication.
+VS Code terminal is our IDE choice for committing and pushing our git content to our hub and have established a seamless process for updating our publication.  
+  
+We used the Stata program and abstract template originally created by Professor Muzaale and we appreciated his kind help during this course.
 
 **References:**  
 

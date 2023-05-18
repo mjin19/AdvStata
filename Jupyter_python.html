@@ -368,7 +368,10 @@ document.write(`
 <h1>Jupyter-Python Version<a class="headerlink" href="#jupyter-python-version" title="Permalink to this heading">#</a></h1>
 <section id="increasing-access-to-the-nhanes-1988-2018-surveys-mortality-linkage-data-via-a-user-friendly-stata-program">
 <h2>Increasing access to the NHANES 1988-2018 surveys &amp; mortality linkage data via a user-friendly Stata program<a class="headerlink" href="#increasing-access-to-the-nhanes-1988-2018-surveys-mortality-linkage-data-via-a-user-friendly-stata-program" title="Permalink to this heading">#</a></h2>
-<p><em>Mu Jin, Johns Hopkins Bloomberg School of Public Health</em></p>
+<p><em>Mu Jin, Johns Hopkins Bloomberg School of Public Health</em><br />
+<em>Junming Gong, Johns Hopkins Bloomberg School of Public Health</em><br />
+<em>Xueer Zhang, Johns Hopkins Bloomberg School of Public Health</em><br />
+<em>Sohyeon Kwon, Johns Hopkins Bloomberg School of Public Health</em></p>
 <p><strong>Background:</strong></p>
 <p>The National Health and Nutrition Examination Survey (NHANES) is a comprehensive initiative tasked with evaluating the health and nutritional conditions of both children and adults in the United States. This distinctive survey is conducted through a blend of in-depth interviews and physical examinations. It is a cornerstone program of the National Center for Health Statistics (NCHS), a component of the Centers for Disease Control and Prevention (CDC).</p>
 <p>For the 700 course, we curated a dataset with all the <a class="reference external" href="https://data.nber.org/mortality/">mortality records</a> in the United States from 1959-2017 and wrote a basic Stata script that output a <a class="reference external" href="https://jhustata.github.io/book/_downloads/9359d2ae4f8ad2efcfe2fd34e3547c35/mortality.png">two-way plot</a> showing annual trends in number of deaths during this period. For the final project, our group designed a program using NHANES data to conduct survival analysis for any of the variables in the dataset.</p>
@@ -376,12 +379,23 @@ document.write(`
 <p>This program is based on Stata/BE 17.0. This current program outputs an NHANES dataset with 22 pre-specified variables. Kaplan-Meier graph is used to show the difference between survival probability by exposure group. Scaled Schoenfeld residuals is used to test the proportional hazards assumption, and Cox proportional hazards model is used to evaluate the effect of selected variable on survival.</p>
 <p><strong>Results:</strong></p>
 <p>This project outputs a Kaplan-Meier graphs by input variable, results from proportional hazards assumption test, and output a univariate Cox model. To call the program, you would use: <code class="docutils literal notranslate"><span class="pre">survival_analysis</span> <span class="pre">variable</span> <span class="pre">name</span></code>. We also showed an example, the exposure is <code class="docutils literal notranslate"><span class="pre">hab1</span></code> (general health status) and the outcome is time to death.</p>
-<p>Here is an example of how to use the program:</p>
+<p>Here is how we developed the NHANES mortality dataset:</p>
+<div class="highlight-stata notranslate"><div class="highlight"><pre><span></span><span class="k">set</span> scheme s2color
+nhanes 
+</pre></div>
+</div>
+<p><img alt="" src="_images/Graph.svg" /></p>
+<div class="highlight-stata notranslate"><div class="highlight"><pre><span></span><span class="k">use</span> nh3andmort,<span class="k"> clear</span>
+<span class="k">di</span> <span class="s">&quot;obs: </span><span class="nv">`c(N)&#39;</span><span class="s"> &amp; vars: </span><span class="nv">`c(k)&#39;</span><span class="s">&quot;</span>
+</pre></div>
+</div>
+<p><u>obs</u>: 19599<br />
+<u>vars</u>: 22</p>
+<p>Here is our survival analysis program and an example:</p>
 <div class="highlight-stata notranslate"><div class="highlight"><pre><span></span><span class="k">use</span> nh3andmort,<span class="k"> clear</span>  
 <span class="k">stset</span> permth_exm, failure(mortstat) 
 </pre></div>
 </div>
-<p><img alt="" src="_images/Graph.svg" /></p>
 <div class="highlight-stata notranslate"><div class="highlight"><pre><span></span><span class="k">capture program drop</span> survival_analysis
 <span class="k">program</span> define survival_analysis
 <span class="k">  args</span> varname
@@ -399,7 +413,7 @@ document.write(`
 survival_analysis hab1  
 </pre></div>
 </div>
-<p><img alt="" src="_images/kaplan-meier.png" /></p>
+<p><img alt="" src="_images/Graph1.svg" /></p>
 <p>Cox proportional hazards model for hab1:</p>
 <table class="table">
 <thead>
@@ -444,6 +458,7 @@ survival_analysis hab1
 <p><strong>Acknowledgments:</strong></p>
 <p>We initially published our Stata output in a Jupyter book hosted by Github. All the .html content of the book was produced in a Python environment; however, Stata .html output will gradually replace the Python-based output of the book as we truly become advanced Stata users!</p>
 <p>VS Code terminal is our IDE choice for committing and pushing our git content to our hub and have established a seamless process for updating our publication.</p>
+<p>We used the Stata program and abstract template originally created by Professor Muzaale and we appreciated his kind help during this course.</p>
 <p><strong>References:</strong></p>
 <ol class="arabic simple">
 <li><p><a class="reference external" href="https://jhustata.github.io/book/jjj.html">https://jhustata.github.io/book/jjj.html</a></p></li>
