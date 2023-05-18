@@ -4,8 +4,5 @@
 format: jb-book
 root: intro
 chapters:
-- file: background
-- file: methods
-- file: results
-- file: conclusions
-- file: references
+- file: Jupyter_python
+- file: Stata_dyndoc

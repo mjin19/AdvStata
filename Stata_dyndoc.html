@@ -1,0 +1,118 @@
+<h1><a href="#increasing-access-to-the-nhanes-1988-2018-surveys-mortality-linkage-data-via-a-user-friendly-stata-program" id="increasing-access-to-the-nhanes-1988-2018-surveys-mortality-linkage-data-via-a-user-friendly-stata-program">Increasing access to the NHANES 1988-2018 surveys &amp; mortality linkage data via a user-friendly Stata program</a></h1>
+<p>Authors, degrees, institutional affiliations</p>
+<p><strong>Background:</strong> The National Health and Nutrition Examination Survey (NHANES) is a comprehensive initiative tasked with evaluating the health and nutritional conditions of both children and adults in the United States. This distinctive survey is conducted through a blend of in-depth interviews and physical examinations. It is a cornerstone program of the National Center for Health Statistics (NCHS), a component of the Centers for Disease Control and Prevention (CDC).</p>
+<p>For the 700 course, we curated a dataset with all the <a href="https://data.nber.org/mortality/">mortality records</a> in the United States from 1959-2017 and wrote a basic Stata script that output a <a href="https://jhustata.github.io/book/_downloads/9359d2ae4f8ad2efcfe2fd34e3547c35/mortality.png">two-way plot</a> showing annual trends in number of deaths during this period. For the final project, our group designed a program using NHANES data to conduct survival analysis for any of the varibles in the dataset.</p>
+<p><strong>Methods:</strong> This program is based on Stata/BE 17.0. This current program outputs an NHANES dataset with 22 pre-specified variables. Kaplan-Meier graph is used to show the difference between survival probality by exposure group. Scaled Schoenfeld residuals is used to test the proportional hazards assumption, and Cox proportional hazards model is used to evaluate the effect of selected variable on survival.</p>
+<p><strong>Results:</strong> This project outputs a Kaplan-Meier graphs by input variable, results from proportional hazards assumption test, and output a univariate Cox model. To call the program, you would use: survival_analysis variable name. We also showed an example, the exposure is hab1(general health status) and the outcome is time to death.</p>
+<pre><code>. qui do https://raw.githubusercontent.com/jhustata/book/main/nhanes-alpha.ado    
+&gt;   
+
+. set scheme s2color
+
+. nhanes
+
+</code></pre>
+<p><img src="Graph.svg" ></p>
+<pre><code>. use nh3andmort, clear
+(NHANES 1988-1994, survey &amp; mortality)
+
+. di &quot;obs: `c(N)' &amp; vars: `c(k)'&quot;      
+obs: 19599 &amp; vars: 22
+
+</code></pre>
+<pre><code>. stset permth_exm, failure(mortstat)
+
+Survival-time data settings
+
+         Failure event: mortstat!=0 &amp; mortstat&lt;.
+Observed time interval: (0, permth_exm]
+     Exit on or before: failure
+
+--------------------------------------------------------------------------
+     19,599  total observations
+      2,313  event time missing (permth_exm&gt;=.)             PROBABLE ERROR
+          4  observations end on or before enter()
+--------------------------------------------------------------------------
+     17,282  observations remaining, representing
+      7,149  failures in single-record/single-failure data
+  4,579,308  total analysis time at risk and under observation
+                                                At risk from t =         0
+                                     Earliest observed entry t =         0
+                                          Last observed exit t =       373
+
+. 
+. capture program drop survival_analysis
+
+. program define survival_analysis
+  1.   args varname
+  2.   
+.   sts graph, by(`varname') title(Kaplan-Meier Estimates)
+  3.   graph export kaplan-meier.png,replace
+  4.   
+.   di &quot;Cox proportional hazards model for `varname':&quot;
+  5.   stcox `varname'
+  6.   
+.   di &quot;Proportional hazards assumption test for `varname':&quot;
+  7.   estat phtest
+  8.   
+. end
+
+. 
+. survival_analysis hab1
+
+        Failure _d: mortstat
+  Analysis time _t: permth_exm
+file /Users/mujin/Downloads/advstata_final/kaplan-meier.png saved as PNG format
+Cox proportional hazards model for hab1:
+
+        Failure _d: mortstat
+  Analysis time _t: permth_exm
+
+Iteration 0:   log likelihood = -67692.424
+Iteration 1:   log likelihood = -67155.866
+Iteration 2:   log likelihood = -67155.856
+Refining estimates:
+Iteration 0:   log likelihood = -67155.856
+
+Cox regression with Breslow method for ties
+
+No. of subjects =    17,282                            Number of obs =  17,282
+No. of failures =     7,149
+Time at risk    = 4,579,308
+                                                       LR chi2(1)    = 1073.14
+Log likelihood = -67155.856                            Prob &gt; chi2   =  0.0000
+
+------------------------------------------------------------------------------
+          _t | Haz. ratio   Std. err.      z    P&gt;|z|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+        hab1 |   1.446283   .0162612    32.82   0.000      1.41476    1.478508
+------------------------------------------------------------------------------
+Proportional hazards assumption test for hab1:
+
+Test of proportional-hazards assumption
+
+Time function: Analysis time
+------------------------------------------------
+             |     chi2       df       Prob&gt;chi2
+-------------+----------------------------------
+ Global test |    86.25        1          0.0000
+------------------------------------------------
+
+</code></pre>
+<p><img src="Graph1.svg" ></p>
+<p><strong>Conclusions:</strong> NHANES is a large databased with 19599 participants surveyed and 26 questionnaire, exam, and lab items captured. It is soon going to be fully accessible to Stata users, in no small part because of this humble capstone project.</p>
+<p>This program can easily run and show the results for a survival analysis between a variable in the dataset and time to death for NHANES participants from 1959-2017.</p>
+<p><strong>Acknowledgments:</strong> We initially published our Stata output in a Jupiter-book hosted by Github. All the .html content of the book was produced in a Python environment; however, Stata .html output will gradually replace the Python-based output of the book as we truly become advanced Stata users!</p>
+<p>VS Code terminal is our IDE choice for committing and pushing our git content to our hub and have established a seamless process for updating our publication.</p>
+<p>We used the Stata program and abstract template originally created by Professor Muzaale and we appreciated his kind help during this course.</p>
+<p><strong>References:</strong></p>
+<ol>
+<li><a href="https://jhustata.github.io/book/jjj.html">https://jhustata.github.io/book/jjj.html</a></li>
+<li><a href="https://jupyterbook.org/en/stable/start/your-first-book.html">https://jupyterbook.org/en/stable/start/your-first-book.html</a></li>
+<li><a href="https://www.stata.com/stata-news/news36-1/spotlight-markdown/">https://www.stata.com/stata-news/news36-1/spotlight-markdown/</a></li>
+<li><a href="https://wwwn.cdc.gov/nchs/data/nhanes3/1a/adult.sas">https://wwwn.cdc.gov/nchs/data/nhanes3/1a/adult.sas</a></li>
+<li><a href="https://jhustata.github.io/class700/intro.html">https://jhustata.github.io/class700/intro.html</a></li>
+<li><a href="https://www.jhsph.edu/courses/course/37447/2022/340.700.71/advanced-stata-programming">https://www.jhsph.edu/courses/course/37447/2022/340.700.71/advanced-stata-programming</a></li>
+<li><a href="https://www.surgjournal.com/article/S0039-6060(18)30076-X/fulltext">Muzaale AD. Databases for surgical health services research: National Health and Nutrition Examination Survey. Surgery. 2019 May;165(5):873-875</a></li>
+<li><a href="https://www.ssc.wisc.edu/~hemken/Stataworkshops/dyndoc%20review/Review.html">https://www.ssc.wisc.edu/~hemken/Stataworkshops/dyndoc%20review/Review.html</a></li>
+</ol>
